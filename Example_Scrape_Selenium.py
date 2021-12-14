@@ -23,8 +23,8 @@ pd.options.display.max_rows=None
 
 processed_path = '/Users/user/Downloads/Python_Data/processed_data'
 
-# Site URL 
-url = 'https://coinmarketcap.com/exchanges/bittrex/'
+# Site URL
+url = 'https://coinmarketcap.com/exchanges/coinbase-exchange/'
 
 #%% First Iteration of Scraping
 
@@ -38,7 +38,7 @@ print(soup.find(class_='table'))
 #%% Scraping using alt version
 # https://towardsdatascience.com/data-science-skills-web-scraping-javascript-using-python-97a29738353f
 
-# Other page alternate 
+# Other page alternate
 page_alt = urllib.request.urlopen((url))
 
 # Other soup alternate
@@ -78,6 +78,7 @@ df.to_csv('/Users/user/Downloads/Python_Data/raw_data/market_cap_100_200coins_25
 
 #%% Selenium Scraping
 # https://stackoverflow.com/questions/45259232/scraping-google-finance-beautifulsoup/45259523#45259523
+# https://sites.google.com/chromium.org/driver/
 
 browser = webdriver.Chrome(executable_path='/Users/user/Downloads/chromedriver')
 
@@ -98,19 +99,35 @@ table = soup.find_all('table')
 
 df = pd.read_html(str(table))[0]
 
-month = [x for x in df["Month"]]
+# For coinmarketcap -> coinbase_exchange
+# Match the entire word of USD.
+df_temp = df[df['Pair'].str.contains(r'\bUSD\b')]
 
-df.Month = df.Month.str.strip('%')
+# Drop the index
+df_temp.reset_index(drop=True, inplace=True)
+
+# Final output
+df_temp[['#','Currency']].to_csv('/Users/user/Downloads/Python_Data/raw_data/coinbase_ONLY_USD_coins_13DEC2021.csv')
+
+# Output data to CSV
+
+
+
+
+
+# month = [x for x in df["Month"]]
+
+# df.Month = df.Month.str.strip('%')
 
 # make it numeric
-df['Month'] = df.Month.str.strip('%')
+# df['Month'] = df.Month.str.strip('%')
 
 # save rank and name columsn to CSV
 # The names will be used in other API call code.
 # I want to pass a list of crypto names in the API call.
 
-df[['Rank','Name']].to_csv(os.path.join(processed_path,'crypto_rank_name.csv'), 
-                           index=False)
+# df[['Rank','Name']].to_csv(os.path.join(processed_path,'crypto_rank_name.csv'),
+#                            index=False)
 
 
 
