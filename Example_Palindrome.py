@@ -6,9 +6,6 @@ Created on Sun Aug 29 21:51:39 2021
 @author: user
 """
 
-import pandas as pd
-
-
 def palin(val1):
     return val1 == val1[::-1]
 
