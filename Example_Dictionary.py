@@ -16,6 +16,7 @@ other_nerd_dict = {'nerd' : 1,
 			 	   'geek' : 4} 	
 #Keys are strings and the values are integers
 nerd_dict[5] = 'loser'
+nerd_dict.update({6:'chod'})
 nerd_items = nerd_dict.items()
 nerd_key = nerd_dict.keys()
 nerd_value = nerd_dict.values()
