@@ -15,6 +15,7 @@ import time
 ### Port, Server, Email addresses and Message ###
 #################################################
 
+# All of the server, ports, emails need to be outside of the function
 port = 465
 smtp_server = "smtp.gmail.com"
 sender_email = "dfrewards1@gmail.com"
@@ -24,16 +25,19 @@ current_time = time.asctime()
 message = f"""\
 Subject: Test - {current_time}
 
-A test message: {current_time}  """ 
+A test message: {current_time}  """
 
-#%% SSL and Server
+#%%
+def email_api_status():
+    ###################################################
+    ### SSL Connection and Server Login & Sendemail ###
+    ###################################################
+    
+    with smtplib.SMTP_SSL(smtp_server) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, rec_email, message)
+        # server.set_debuglevel(1)
+#%%
 
-###################################################
-### SSL Connection and Server Login & Sendemail ###
-###################################################
-
-with smtplib.SMTP_SSL(smtp_server) as server:
-    server.login(sender_email, password)
-    server.sendmail(sender_email, rec_email, message)
-    server.set_debuglevel(1)
+email_api_status()
     
