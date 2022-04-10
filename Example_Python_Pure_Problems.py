@@ -8,23 +8,23 @@ str_var = "ididntevenhavetousemyAK"
 num_str = "there was 1 and 2 but not 3"
 
 	
-
+#%%
 #######################
 ## FIND MISSING NUM. ##
 #######################
 def missing_num():
-	for x in range(max(num_list_missing_value) + 1):
+	for x in range(max(num_list_missing_value)):
 		if x not in num_list_missing_value:
 			print('Missing Number: ', x)
 		
 missing_num()
-
+#%%
 ######################
 ## MIN & MAX VALUES ##
 ######################
 
 print('Min. ', min(num_array), '\tMax. ', max(num_array))
-
+#%%
 ###################
 ## SUM TWO LISTS ##
 ###################
@@ -42,7 +42,7 @@ for x in range(0, len(str_var)):
 		if str_var[x] == vowels[y]:
 			print("match: ", str_var[x], vowels[y])
 
-
+#%%
 ################
 ## PALINDROME ##
 ################
@@ -56,7 +56,7 @@ if ans is True:
 	print('Yes - Palindrome')
 else:
 	print('No - Palindrome')
-
+#%%
 ##################
 ## COUNT VOWELS ##
 ##################
@@ -71,7 +71,7 @@ def countVowels(my_str):
 cv = countVowels(str_var)
 print('String: ', str_var)
 print('Vowels: ', cv, '\t', 'Constants: ', len(str_var) - cv)
-
+#%%
 #############################
 ## Count Occurance of Char ##
 #############################	
@@ -87,7 +87,7 @@ def countOccurance(my_str):
 	
 countOccurance(str_var)
 		
-
+#%%
 ###################
 ## NUM IN STRING ##	
 ###################
@@ -99,9 +99,10 @@ def numberString(numberString):
 			x.append(i)
 	
 	return x
-			
-print("number in str: ", numberString(num_str))
 
+print('String: ', num_str)
+print("number in str: ", numberString(num_str))
+#%%
 #######################
 ## remove duplicates ##
 #######################
@@ -111,11 +112,13 @@ def rem_duplicates(x_array):
 	for x in x_array:
 		if x not in unique:
 			unique.append(x)
-			
-	print('Unique: ', unique)
+    
+    return unique
 
-rem_duplicates(num_array2)
+print('String: ', num_array2)
+print('Unique: ', rem_duplicates(num_array2))
 
+#%%
 #############################
 ## show integer duplicates ##
 #############################
@@ -128,7 +131,7 @@ def show_duplicates(x_array):
 	print('Duplicates: ', set(duplicates)) #set shows the unique duplicate values
 	
 show_duplicates(num_array2)
-
+#%%
 ##############################
 ## duplicate char in string ##
 ##############################
@@ -142,7 +145,7 @@ def dup_char_string(string_var):
 	print('Duplicate CHAR in String: ', string_dupes)
 	
 dup_char_string(str_var)
-
+#%%
 ##############################
 ## reverse string recursion ##
 ##############################
@@ -155,7 +158,7 @@ def reverse(s):
 	
 #print(str_var)
 print('Reverse recursion: ', reverse(str_var))
-
+#%%
 ##########################
 ## count char occurence ##
 ##########################
@@ -169,5 +172,33 @@ char_count(str_var, 'i')
 ##################
 ## binary trees ##
 ##################		
+
+#%% 
+##################
+## sum of pairs ##
+##################
+
+pairs_list = [1,2,3,4,5,6]
+
+for x in pairs_list:
+    for y in pairs_list:
+        if x + y == 5:
+            print(x,y)
+        else:
+            pass
+        
+#%%
+
+#################################
+## Reverse words in a sentence ##
+#################################
+
+words = 'I didnt have to use my AK'
+
+split_words = words.split()
+
+rev_words = list(reversed(split_words))
+
+print(rev_words)
 					
 
