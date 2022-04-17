@@ -1,15 +1,30 @@
-import copy
 
-#Set = unordered collection of unique elements
-#cannot contain lists or dictionaries
-#Sets can only contain immutable data
-#Sets do not have a lookup ability
-#== is an equality check
-#= is an assignment operator
+"""
+Set = unordered collection of unique elements
+cannot contain lists or dictionaries
+Sets can only contain immutable data
+Sets do not have a lookup ability
+== is an equality check
+= is an assignment operator
+"""
+
 set_str = {'CZ','Glock','STI','Tanfoglio','BUL','Infinity'}
 set_str2 = {'springfield','Nighthawk','STI','Limcat'}
 print('Set String: ', set_str)
+
 #Sets have no order, hence we can't call index ie set_str[1]
-set_str.add('Dan Wesson')
+# Function Update will update multiple values to Set
+set_str.update(['Dan Wesson', 'springfield','STI','Limcat'])
 print('Set String 2: ', set_str2)
 
+# Union: Return elements from one Set OR the other Set
+set_str | set_str2
+
+# Intersection: Return elements from one Set and the other Set
+set_str & set_str2
+
+# Difference: Will show results of left had Set
+set_str - set_str2
+
+# Systemic Difference: Return where Sets are not equal
+set_str ^ set_str2
