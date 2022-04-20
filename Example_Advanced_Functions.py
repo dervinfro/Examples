@@ -21,14 +21,19 @@ some_func()
 print(country, city)
 print('*' * 25, '\n')
 
+
 def some_func1():
-	global country
-#	"""Using the keyword global, I'm able to call the above global variable and ref it directly in the function"""
-	country = country + ' - North America'
-	print('Global REF: ', country)
-	print(city)
+    global country
+    # Using the keyword global I'm able to call the above global variable 
+    # and ref it directly in the function
+    print('Country before being appended: ',country)
+    country = country + ' - North America'
+    print('Global REF: ', country)
+    print(city)
 
 some_func1()
+print('Country outside the function: ',country)
+
 print('*' * 25, '\n')
 
 def savings(name, salary, expense, ir):
