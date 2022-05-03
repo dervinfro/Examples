@@ -18,14 +18,14 @@ import os
 from twilio.rest import Client
 
 
-account_sid = 'AC461e0746b12ba3a1aa62b5642c4886c7'
+account_sid = 'enter_account_id'
 auth_token = 'enter_auth_id'
 
 client = Client(account_sid, auth_token)
 
     #%%
 
-client.messages.create(from_='+19593011059',
-                       to='+17063154974',
+client.messages.create(from_='+1<from_number>',
+                       to='+1<to_number>',
                        body='You just sent an SMS from Python using Twilio!')
 #%%
