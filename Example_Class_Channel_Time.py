@@ -58,9 +58,10 @@ unique_time1 = time.time()
 
 # Create a random channel freq number
 ran_chan = np.random.randint(1000,5000,1).item()
+ran_chan = 4007
 
 # Create a instance called chan1
-chan1 = ChannelTime(unique_time1, ran_chan)
+chan1 = ChannelTime(unique_time, ran_chan)
 
 repr(chan1)
 

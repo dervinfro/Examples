@@ -15,3 +15,14 @@ for x in range(10):
     a = b
     b = c
     
+#%%
+
+# Fibonacci Sequence
+# Set a & b
+d,e = 0,1
+
+# Loop through 15 values
+for x in range(15):
+    print(d)
+    d,e = e, d+e
+    

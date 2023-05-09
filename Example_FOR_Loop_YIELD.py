@@ -10,9 +10,8 @@ https://livecodestream.dev/post/how-to-use-generator-and-yield-in-python/
 
 import pandas as pd
 import os
-import sys
 
-osGetcwd = os.getcwd()
+os.getcwd = os.getcwd()
 
 os.listdir(path='.')
 
@@ -25,32 +24,28 @@ dfShape = df.shape
 # Head
 dfHead = df.head(n=15)
 
-#%% FOR df.iterrows
+# %% FOR df.iterrows
 # FOR loop using df.iterrows
 for index, rows in dfHead.iterrows():
-    print('Index: ', index, '\n' , rows[8], rows[9])
+    print('Index: ', index, '\n', rows[8], rows[9])
 
-#%%
+
+# %%
 # Function that opens and returns yield for file_name
-def csvReader(file_name):
-    for row in open(file_name,'r'):
-        yield row
-  
+def csv_reader(file_name):
+    for myrow in open(file_name, 'r'):
+        yield myrow
+
+
 # CSV Reader that reads in file and return Generator
-csvGenerator = csvReader('/Users/user/Desktop/CSV/gpslog7JUN.csv')
+csvGenerator = csv_reader('/Users/user/Desktop/CSV/gpslog7JUN.csv')
 
 # Variable rowCount set to 0
 rowCount = 0
 
 # FOR loop for Generator, that returns the number of lines in file
 for row in csvGenerator:
-    rowCount += 1 
-    
+    rowCount += 1
+
 # Output the rowCount
 print('Row count is: {}'.format(rowCount))
-
-
-
-
-
-
