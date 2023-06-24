@@ -10,6 +10,11 @@ import requests
 import datetime as dt
 import numpy as np
 import time
+import asyncio
+import aiohttp
+import nest_asyncio
+import pandas as pd
+import numpy as np
 
 
 resp = requests.get('https://api.binance.us/api/v3/klines?interval=5m&limit=1&symbol=BTCUSD')
@@ -19,8 +24,8 @@ print(resp.json())
 print(dt.datetime.utcfromtimestamp(1687148100000 / 1000))
 print(dt.datetime.utcfromtimestamp(1687148399999 / 1000))
 
-#%%
-trading_pair_array = np.array(['BTCUSDT', 'ETHUSDT', 'BCHUSDT', 'LTCUSDT', 'BNBUSDT', 'ADAUSDT',
+#%% trading_pair_array cell
+trading_pair_array1 = np.array(['BTCUSDT', 'ETHUSDT', 'BCHUSDT', 'LTCUSDT', 'BNBUSDT', 'ADAUSDT',
        'BATUSDT', 'ETCUSDT', 'XLMUSDT', 'ZRXUSDT', 'DOGEUSDT', 'ATOMUSDT',
        'NEOUSDT', 'VETUSDT', 'QTUMUSDT', 'ONTUSDT', 'KNCUSDT', 'VTHOUSDT',
        'COMPUSDT', 'MKRUSDT', 'ONEUSDT', 'BANDUSDT', 'STORJUSDT',
@@ -73,6 +78,9 @@ trading_pair_array = np.array(['BTCUSDT', 'ETHUSDT', 'BCHUSDT', 'LTCUSDT', 'BNBU
        'IOSTUSDT', 'IOSTUSD', 'ARBUSDT', 'ARBUSD', 'FLOKIUSDT',
        'FLOKIUSD', 'XECUSDT', 'XECUSD', 'BLURUSDT', 'BLURUSD'])
 
+trading_pair_array1.sort()
+
+trading_pair_array = trading_pair_array1
 #%%
 
 import datetime
@@ -108,36 +116,33 @@ def print_current_time():
 while True:
     print_current_time()
 
-#%%
-import asyncio
-import aiohttp
-import requests
-import nest_asyncio
-
+#%% two functrions and run cell
+# Run below line for error code: 'Cannot run the event loop while another loop is running'
 nest_asyncio.apply()
 
-async def process_trading_pair(trading_pair):
+async def process_trading_pair(semaphore, trading_pair):
     url = f'https://api.binance.us/api/v3/klines?interval=5m&limit=1&symbol={trading_pair}'
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            data = await response.json()
-            print(trading_pair, '\n', 
-                  dt.datetime.utcfromtimestamp(data[0][0] / 1000), '\n',
-                  dt.datetime.utcfromtimestamp(data[0][6] / 1000))
-            print(data)
+    async with semaphore:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                data = await response.json()
+                # Insert trading pair into the 0 index location of the .JSON output
+                data[0].insert(0, trading_pair)
+                return data[0]
 
 async def main():
-    # print main message
-    print('main starting')
+    global df_json
+    semaphore = asyncio.Semaphore(20)
     # Array of trading pairs
     # trading_pairs = trading_pair_array
     # Gather all the coroutines for each trading pair
     # trading_pair_array was pulled in from crypto_binance_apy.py
-    coroutines = [process_trading_pair(pair) for pair in trading_pair_array]
+    coroutines = [asyncio.create_task(process_trading_pair(semaphore, pair)) for pair in trading_pair_array]
     # Run the tasks
-    await asyncio.gather(*coroutines)
+    values = await asyncio.gather(*coroutines)
     # Set Elapsed Time and print message
-    print('main done')
+    df_json = pd.DataFrame(values)
+    print(df_json.head())
 
 # NOTE: It is faster to use .get_event_loop(main()) than to use .run(main())
 # Set the Time Loop counter
@@ -222,6 +227,7 @@ async def main():
     # Create many routines
     coros = [task_coro1(i) for i in range(10)]
     # run the tasks
+    # When using .gather it is necessary to pass in the coroutine name with a '*'
     await asyncio.gather(*coros)
     # report a message
     print('main done')
@@ -231,13 +237,3 @@ s = time.perf_counter()
 asyncio.run(main())
 elapsed = time.perf_counter() - s
 print('Elapsed time: {}'.format(elapsed))
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
