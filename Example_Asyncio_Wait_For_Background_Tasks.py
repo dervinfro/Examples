@@ -10,7 +10,11 @@ Created on Fri Jun 23 14:53:47 2023
 # example of waiting for all background tasks in asyncio
 import random
 import asyncio
- 
+import nest_asyncio
+
+# Run below line for error code: 'Cannot run the event loop while another loop is running'
+nest_asyncio.apply()
+
 # coroutine run in the background
 async def task(number):
     # generate a random value between 0 and 10
