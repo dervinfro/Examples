@@ -69,7 +69,7 @@ class TechIndicators:
         # Return the RSI values as a pandas series
         return rsi
     
-    def BollingerBands(self, price, window):
+    def BollingerBands(self, price: pd.Series, window: int):
         # Set the 'price' column of the dataframe to the values passed in as an argument
         self.price = price
         
@@ -112,7 +112,7 @@ rsi_df = df.groupby("name")["price"].apply(lambda x: ti.RSI(x, periods=3))
 df['RSI'] = rsi_df.values
 
 # Group the DataFrame by name and apply the BollingerBand() method to each group
-grouped_df = df.groupby('name').apply(lambda x: ti.BollingerBands(x['price'], window=5))
+grouped_df = df.groupby('name').apply(lambda x: ti.BollingerBands(x['price'], 5))
 
 # this line takes the values from the grouped_df and saves them to the df with the column keys
 df[['bb_upper','bb_lower','bb_sma']] = grouped_df.values
