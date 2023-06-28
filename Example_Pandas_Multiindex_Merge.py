@@ -20,7 +20,7 @@ s1 = pd.DataFrame(np.random.randn(8), index=index1, columns=['s1'])
 s2 = pd.DataFrame(np.random.randn(8), index=index2, columns=['s2'])
 
 # An option for multi index merge
-s1.merge(s2,  left_index=True, right_index=['third','fourth'])
+s1.merge(s2,  left_index=True, right_on=['third','fourth'])
 
 # A second option for multi index merge
 s1.loc[:, 's2'] = s2
