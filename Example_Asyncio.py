@@ -101,12 +101,12 @@ def print_current_time():
     # ...5 minute interval.  
     # I need to test the time it takes to complete the API call.  This value will take place
     #  of the 15 second.
-    seconds_left = (5 - (current_minute % 5)) * 60 - 15 - current_second
-    print('Minutes and Seconds until 15 seconds before the 5 min mark: {} {}'\
-          .format((seconds_left / 60), seconds_left))
+    seconds_left = (5 - (current_minute % 5)) * 60 - 2 - current_second
+    print('Current time and second: {} {} and Seconds until 15 seconds before the 5 min mark: {}'\
+          .format(current_minute, current_second, seconds_left))
     
     # Wait until the next 5-minute interval minus 15 seconds
-    time.sleep(seconds_left)
+    time.sleep(1)
     
     
     # Print the current time
@@ -143,6 +143,7 @@ async def main():
     # Set Elapsed Time and print message
     df_json = pd.DataFrame(values)
     print(df_json.head())
+    print(df_json.shape)
 
 # NOTE: It is faster to use .get_event_loop(main()) than to use .run(main())
 # Set the Time Loop counter
