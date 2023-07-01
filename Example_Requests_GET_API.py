@@ -15,11 +15,15 @@ Cleaner way to do things given that it is easily scalable in the future...
 
 """
 import requests
+import time
+import datetime
 
 def get_klines_data(symbols):
     base_url = 'https://api.binance.us/api/v3/klines'
     interval = '1s'
     limit = '1'
+    
+    global data
 
     for symbol in symbols:
         params = {
@@ -41,3 +45,9 @@ def get_klines_data(symbols):
 # Example usage with an array of symbols
 symbols = ['BTCUSD', 'ETHUSD', 'LTCUSD']
 get_klines_data(symbols)
+
+# Output the POSIX value that comes from the .JSON data.
+# Also...output the datetime conversion of that POSIX value
+print('Print POSIX from data .JSON: {}\
+ and POSIX converted: {}'.format(data[0][0], datetime.datetime.fromtimestamp(data[0][0]/1000)))
+
