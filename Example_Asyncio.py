@@ -14,9 +14,8 @@ import asyncio
 import aiohttp
 import nest_asyncio
 import pandas as pd
-import numpy as np
 
-
+#%%
 resp = requests.get('https://api.binance.us/api/v3/klines?interval=5m&limit=1&symbol=BTCUSD')
 
 print(resp.json())
@@ -148,10 +147,11 @@ async def main():
 # NOTE: It is faster to use .get_event_loop(main()) than to use .run(main())
 # Set the Time Loop counter
 s = time.perf_counter()
+asyncio.run(main())
 # Create an event loop
-loop = asyncio.new_event_loop()
+# loop = asyncio.new_event_loop()
 # Run the coroutines concurrently
-loop.run_until_complete(main())
+# loop.run_until_complete(main())
 elapsed = time.perf_counter() - s
 print('Elapsed time: {}'.format(elapsed))
 #%%
