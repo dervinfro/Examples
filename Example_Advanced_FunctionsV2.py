@@ -2,6 +2,7 @@
 import sys
 import random
 import math
+from functools import cache
 
 
 print("recursions limit: ", sys.getrecursionlimit())
@@ -47,6 +48,7 @@ def factorial(number):
 		
 print('Factorial: ', factorial(2))
 print('*' * 25)
+@cache
 def fibonacci(number, fib_series):
 	if number < 2:
 		print(number)
@@ -66,6 +68,29 @@ series = [0,1]
 print('Fib series: ', fibonacci(10, series))
 print('series: ', series)
 print('*' * 25)
+
+# %%
+"""
+A common use case for decorators is to implement caching, 
+where the result of a function is stored after its first computation 
+so that subsequent calls with the same arguments can be returned 
+from the cache instead of recomputing the result.
+"""
+@cache
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n - 1) + fib(n - 2)
+
+def main():
+    for i in range(400):
+        print(i, fib(i))
+
+print('done')
+ 
+if __name__ == '__main__':
+    main()
+
 
 #%%
 #Generator: 
