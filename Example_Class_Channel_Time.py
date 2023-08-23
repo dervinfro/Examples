@@ -52,6 +52,7 @@ class ChannelTime:
             # Set dictionary key/value pair
             cls.timechan[epoch_time] = channel
         print('timechan: ', cls.timechan)
+        return cls.timechan
             
 #%%
 # A unique static time used to test the key in the dictionary
@@ -63,15 +64,15 @@ unique_time1 = time.time()
 ran_chan = 4007
 ran_chan1 = np.random.randint(1000,5000,1).item()
 
+# Create a instance called chan1
+chan1 = ChannelTime(unique_time1, ran_chan1)
+chan1.instanceMethod()
+
 # Repr works due to the @dataclass being imported and used above Class
 repr(chan1)
 
 # Str works due to the @dataclass being imported and used above Class
 str(chan1)
 
-# Create a instance called chan1
-chan1 = ChannelTime(unique_time1, ran_chan1)
-chan1.instanceMethod()
-
 # Class decorator @classmethod does not require Instance object
-ChannelTime.checkChannel(unique_time, ran_chan)
+ccOutput = ChannelTime.checkChannel(unique_time, ran_chan)
