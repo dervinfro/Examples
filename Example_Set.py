@@ -6,7 +6,11 @@ Sets can only contain immutable data
 Sets do not have a lookup ability
 == is an equality check
 = is an assignment operator
+
+SEE: leet_217.py
 """
+
+import numpy as np
 
 set_str = {'CZ','Glock','STI','Tanfoglio','BUL','Infinity'}
 set_str2 = {'springfield','Nighthawk','STI','Limcat'}
@@ -28,3 +32,15 @@ set_str - set_str2
 
 # Systemic Difference: Return where Sets are not equal
 set_str ^ set_str2
+
+#%%
+    """The big difference here is that 'array' will print out 10 integers...some might be duplicates.
+    If I were to pass that array into the set() method, the result would be that it would only show
+    the unique values AND it would drop the duplicates.
+    """
+# Ten random integers
+array = np.random.randint(0, 10, 10)
+# ie [6 1 6 0 0 2 2 8 4 7]
+
+set(array)
+# ie {0, 1, 2, 4, 6, 7, 8}
