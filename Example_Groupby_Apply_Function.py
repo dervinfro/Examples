@@ -18,7 +18,8 @@ pd.set_option('display.max_colwidth', None)
 
 #%% Create DataFrame
 
-df = pd.DataFrame(data_000)
+df = pd.DataFrame({'id':['i1', 'i1', 'i2', 'i2'], 'a':[1,2,3,4], 'b':[5,6,7,8]})
+
 
 headers = df.iloc[0]
 df = df.iloc[1:]
